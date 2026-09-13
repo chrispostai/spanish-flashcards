@@ -1,203 +1,364 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+
+      <meta charset="UTF-8">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+      <title>Spanish Flashcards</title>
+
+      <meta name="apple-mobile-web-app-capable" content="yes">
+
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+      <style>
+
+            :root {
+
+                  --bg-color: #f2f2f7;
+
+                  --card-bg: #ffffff;
+
+                  --text-color: #1c1c1e;
+
+                  --subtext-color: #8e8e93;
+
+                  --easy-color: #34c759;
+
+                  --good-color: #ff9500;
+
+                  --hard-color: #ff3b30;
+
+                  --accent-color: #007aff;
+
+            }
+
+            body {
+
+                  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+                  background-color: var(--bg-color);
+
+                  color: var(--text-color);
+
+                  margin: 0;
+
+                  display: flex;
+
+                  flex-direction: column;
+
+                  height: 100vh;
+
+                  justify-content: space-between;
+
+                  align-items: center;
+
+                  user-select: none;
+
+                  -webkit-user-select: none;
+
+            }
+
+            header { margin-top: 40px; text-align: center; width: 90%; }
+
+            .stats { font-size: 13px; color: var(--subtext-color); margin-top: 6px; }
+
+            .mode-selector { margin-top: 10px; display: flex; justify-content: center; gap: 6px; }
+
+            .mode-btn { padding: 6px 12px; font-size: 12px; border-radius: 14px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); font-weight: 600; }
+
+            .mode-btn.active { background: var(--accent-color); color: white; }
+
+            .card-container { width: 85%; max-width: 350px; height: 240px; perspective: 1000px; cursor: pointer; }
+
+            .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.4s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-radius: 20px; background-color: var(--card-bg); }
+
+            .card.flipped { transform: rotateY(180deg); }
+
+            .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 20px; padding: 20px; box-sizing: border-box; }
+
+            .card-back { transform: rotateY(180deg); background-color: #fafafa; }
+
+            .word { font-size: 32px; font-weight: 700; text-align: center; }
+
+            .lang-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--subtext-color); margin-bottom: 8px; }
+
+            .hint { font-size: 13px; color: var(--subtext-color); margin-top: 15px; }
+
+            .controls { width: 85%; max-width: 350px; margin-bottom: 35px; display: flex; gap: 10px; min-height: 50px; }
+
+            button.rate-btn { flex: 1; padding: 15px 0; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; color: white; cursor: pointer; }
+
+            .btn-hard { background-color: var(--hard-color); }
+
+            .btn-good { background-color: var(--good-color); }
+
+            .btn-easy { background-color: var(--easy-color); }
+
+            .hidden { display: none !important; }
+
+      </style>
+
 </head>
+
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Spanish Flashcards&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--bg-color: #f2f2f7;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--card-bg: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--text-color: #1c1c1e;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--subtext-color: #8e8e93;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--easy-color: #34c759;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--good-color: #ff9500;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--hard-color: #ff3b30;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--accent-color: #007aff;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--bg-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>user-select: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-user-select: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>header { margin-top: 40px; text-align: center; width: 90%; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stats { font-size: 13px; color: var(--subtext-color); margin-top: 6px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.mode-selector { margin-top: 10px; display: flex; justify-content: center; gap: 6px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.mode-btn { padding: 6px 12px; font-size: 12px; border-radius: 14px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); font-weight: 600; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.mode-btn.active { background: var(--accent-color); color: white; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card-container { width: 85%; max-width: 350px; height: 240px; perspective: 1000px; cursor: pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.4s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-radius: 20px; background-color: var(--card-bg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card.flipped { transform: rotateY(180deg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 20px; padding: 20px; box-sizing: border-box; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card-back { transform: rotateY(180deg); background-color: #fafafa; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.word { font-size: 32px; font-weight: 700; text-align: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.lang-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--subtext-color); margin-bottom: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hint { font-size: 13px; color: var(--subtext-color); margin-top: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.controls { width: 85%; max-width: 350px; margin-bottom: 35px; display: flex; gap: 10px; min-height: 50px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>button.rate-btn { flex: 1; padding: 15px 0; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; color: white; cursor: pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-hard { background-color: var(--hard-color); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-good { background-color: var(--good-color); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-easy { background-color: var(--easy-color); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hidden { display: none !important; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 style="margin:0;"&gt;Spanish Flashcards&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mode-selector"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="mode-btn active" id="mode-es-en" onclick="setMode('es-en')"&gt;ES ➔ EN&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="mode-btn" id="mode-en-es" onclick="setMode('en-es')"&gt;EN ➔ ES&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="mode-btn" id="mode-mix" onclick="setMode('mix')"&gt;Mixed&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stats" id="stats"&gt;Due: 0 | Studied: 0&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card-container" onclick="flipCard()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card" id="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card-face card-front"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lang-label" id="front-label"&gt;SPANISH&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="word" id="front-word"&gt;...&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="hint"&gt;Tap to reveal answer&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card-face card-back"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lang-label" id="back-label"&gt;ENGLISH&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="word" id="back-word"&gt;...&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="controls" id="controls"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="rate-btn btn-hard" onclick="rateCard('hard')"&gt;Hard&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="rate-btn btn-good" onclick="rateCard('good')"&gt;Good&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="rate-btn btn-easy" onclick="rateCard('easy')"&gt;Easy&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Progress storage and logic</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let progress = JSON.parse(localStorage.getItem('spanish_srs_progress')) || {};</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let studyMode = localStorage.getItem('spanish_study_mode') || 'es-en';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let currentCard = null;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let isFlipped = false;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function setMode(mode) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>studyMode = mode;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>localStorage.setItem('spanish_study_mode', mode);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.mode-btn').forEach(b =&gt; b.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(`mode-${mode}`).classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>loadNextCard();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function getCardData(word) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!progress[word.id]) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>progress[word.id] = { interval: 1, easeFactor: 2.5, dueDate: Date.now(), reviews: 0 };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return progress[word.id];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function getDueCards() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const now = Date.now();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return initialWords.filter(w =&gt; getCardData(w).dueDate &lt;= now);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function saveProgress() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>localStorage.setItem('spanish_srs_progress', JSON.stringify(progress));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateStats() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const dueCount = getDueCards().length;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const studiedCount = Object.keys(progress).filter(id =&gt; progress[id].reviews &gt; 0).length;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('stats').innerText = `Due: ${dueCount} | Studied: ${studiedCount} / ${initialWords.length}`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function loadNextCard() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const due = getDueCards();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateStats();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (due.length === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('front-label').innerText = "SUCCESS";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('front-word').innerText = "All caught up! 🎉";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('back-label').innerText = "SEE YOU TOMORROW";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('back-word').innerText = "Check back later!";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('controls').classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>currentCard = null;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('controls').classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>currentCard = due[0];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>let dir = studyMode;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (studyMode === 'mix') dir = Math.random() &gt; 0.5 ? 'es-en' : 'en-es';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (dir === 'es-en') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('front-label').innerText = "SPANISH";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('front-word').innerText = currentCard.es;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('back-label').innerText = "ENGLISH";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('back-word').innerText = currentCard.en;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('front-label').innerText = "ENGLISH";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('front-word').innerText = currentCard.en;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('back-label').innerText = "SPANISH";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('back-word').innerText = currentCard.es;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>isFlipped = false;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('card').classList.remove('flipped');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function flipCard() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!currentCard) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>isFlipped = !isFlipped;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('card').classList.toggle('flipped', isFlipped);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function rateCard(rating) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!currentCard) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const p = getCardData(currentCard);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const dayMs = 24 * 60 * 60 * 1000;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (rating === 'hard') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.interval = 1;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.easeFactor = Math.max(1.3, p.easeFactor - 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else if (rating === 'good') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.interval = Math.round(p.interval * p.easeFactor);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else if (rating === 'easy') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.easeFactor += 0.15;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.interval = Math.round(p.interval * p.easeFactor * 1.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>p.dueDate = Date.now() + (p.interval * dayMs);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>p.reviews += 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>saveProgress();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>loadNextCard();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.querySelectorAll('.mode-btn').forEach(b =&gt; b.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById(`mode-${studyMode}`).classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>loadNextCard();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+      <header>
+
+            <h3 style="margin:0;">Spanish Flashcards</h3>
+
+            <div class="mode-selector">
+
+                  <button class="mode-btn active" id="mode-es-en" onclick="setMode('es-en')">ES ➔ EN</button>
+
+                  <button class="mode-btn" id="mode-en-es" onclick="setMode('en-es')">EN ➔ ES</button>
+
+                  <button class="mode-btn" id="mode-mix" onclick="setMode('mix')">Mixed</button>
+
+            </div>
+
+            <div class="stats" id="stats">Due: 0 | Studied: 0</div>
+
+      </header>
+
+      <div class="card-container" onclick="flipCard()">
+
+            <div class="card" id="card">
+
+                  <div class="card-face card-front">
+
+                        <div class="lang-label" id="front-label">SPANISH</div>
+
+                        <div class="word" id="front-word">...</div>
+
+                        <div class="hint">Tap to reveal answer</div>
+
+                  </div>
+
+                  <div class="card-face card-back">
+
+                        <div class="lang-label" id="back-label">ENGLISH</div>
+
+                        <div class="word" id="back-word">...</div>
+
+                  </div>
+
+            </div>
+
+      </div>
+
+      <div class="controls" id="controls">
+
+            <button class="rate-btn btn-hard" onclick="rateCard('hard')">Hard</button>
+
+            <button class="rate-btn btn-good" onclick="rateCard('good')">Good</button>
+
+            <button class="rate-btn btn-easy" onclick="rateCard('easy')">Easy</button>
+
+      </div>
+
+      <script>
+
+            // Progress storage and logic
+
+            const initialWords = [
+                  { id: 'hola', es: 'hola', en: 'hello' },
+                  { id: 'adios', es: 'adiós', en: 'goodbye' },
+                  { id: 'gracias', es: 'gracias', en: 'thank you' },
+                  { id: 'por-favor', es: 'por favor', en: 'please' },
+                  { id: 'si', es: 'sí', en: 'yes' },
+                  { id: 'no', es: 'no', en: 'no' },
+                  { id: 'agua', es: 'agua', en: 'water' },
+                  { id: 'comida', es: 'comida', en: 'food' },
+                  { id: 'casa', es: 'casa', en: 'house' },
+                  { id: 'amigo', es: 'amigo', en: 'friend' },
+                  { id: 'familia', es: 'familia', en: 'family' },
+                  { id: 'dia', es: 'día', en: 'day' },
+                  { id: 'noche', es: 'noche', en: 'night' },
+                  { id: 'bueno', es: 'bueno', en: 'good' },
+                  { id: 'grande', es: 'grande', en: 'big' },
+                  { id: 'pequeno', es: 'pequeño', en: 'small' },
+                  { id: 'hablar', es: 'hablar', en: 'to speak' },
+                  { id: 'comer', es: 'comer', en: 'to eat' },
+                  { id: 'vivir', es: 'vivir', en: 'to live' },
+                  { id: 'aprender', es: 'aprender', en: 'to learn' }
+            ];
+
+            let progress = JSON.parse(localStorage.getItem('spanish_srs_progress')) || {};
+
+            let studyMode = localStorage.getItem('spanish_study_mode') || 'es-en';
+
+            let currentCard = null;
+
+            let isFlipped = false;
+
+            function setMode(mode) {
+
+                  studyMode = mode;
+
+                  localStorage.setItem('spanish_study_mode', mode);
+
+                  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+
+                  document.getElementById(`mode-${mode}`).classList.add('active');
+
+                  loadNextCard();
+
+            }
+
+            function getCardData(word) {
+
+                  if (!progress[word.id]) {
+
+                        progress[word.id] = { interval: 1, easeFactor: 2.5, dueDate: Date.now(), reviews: 0 };
+
+                  }
+
+                  return progress[word.id];
+
+            }
+
+            function getDueCards() {
+
+                  const now = Date.now();
+
+                  return initialWords.filter(w => getCardData(w).dueDate <= now);
+
+            }
+
+            function saveProgress() {
+
+                  localStorage.setItem('spanish_srs_progress', JSON.stringify(progress));
+
+            }
+
+            function updateStats() {
+
+                  const dueCount = getDueCards().length;
+
+                  const studiedCount = Object.keys(progress).filter(id => progress[id].reviews > 0).length;
+
+                  document.getElementById('stats').innerText = `Due: ${dueCount} | Studied: ${studiedCount} / ${initialWords.length}`;
+
+            }
+
+            function loadNextCard() {
+
+                  const due = getDueCards();
+
+                  updateStats();
+
+                  if (due.length === 0) {
+
+                        document.getElementById('front-label').innerText = "SUCCESS";
+
+                        document.getElementById('front-word').innerText = "All caught up! 🎉";
+
+                        document.getElementById('back-label').innerText = "SEE YOU TOMORROW";
+
+                        document.getElementById('back-word').innerText = "Check back later!";
+
+                        document.getElementById('controls').classList.add('hidden');
+
+                        currentCard = null;
+
+                        return;
+
+                  }
+
+                  document.getElementById('controls').classList.remove('hidden');
+
+                  currentCard = due[0];
+
+                  let dir = studyMode;
+
+                  if (studyMode === 'mix') dir = Math.random() > 0.5 ? 'es-en' : 'en-es';
+
+                  if (dir === 'es-en') {
+
+                        document.getElementById('front-label').innerText = "SPANISH";
+
+                        document.getElementById('front-word').innerText = currentCard.es;
+
+                        document.getElementById('back-label').innerText = "ENGLISH";
+
+                        document.getElementById('back-word').innerText = currentCard.en;
+
+                  } else {
+
+                        document.getElementById('front-label').innerText = "ENGLISH";
+
+                        document.getElementById('front-word').innerText = currentCard.en;
+
+                        document.getElementById('back-label').innerText = "SPANISH";
+
+                        document.getElementById('back-word').innerText = currentCard.es;
+
+                  }
+
+                  isFlipped = false;
+
+                  document.getElementById('card').classList.remove('flipped');
+
+            }
+
+            function flipCard() {
+
+                  if (!currentCard) return;
+
+                  isFlipped = !isFlipped;
+
+                  document.getElementById('card').classList.toggle('flipped', isFlipped);
+
+            }
+
+            function rateCard(rating) {
+
+                  if (!currentCard) return;
+
+                  const p = getCardData(currentCard);
+
+                  const dayMs = 24 * 60 * 60 * 1000;
+
+                  if (rating === 'hard') {
+
+                        p.interval = 1;
+
+                        p.easeFactor = Math.max(1.3, p.easeFactor - 0.2);
+
+                  } else if (rating === 'good') {
+
+                        p.interval = Math.round(p.interval * p.easeFactor);
+
+                  } else if (rating === 'easy') {
+
+                        p.easeFactor += 0.15;
+
+                        p.interval = Math.round(p.interval * p.easeFactor * 1.3);
+
+                  }
+
+                  p.dueDate = Date.now() + (p.interval * dayMs);
+
+                  p.reviews += 1;
+
+                  saveProgress();
+
+                  loadNextCard();
+
+            }
+
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+
+            document.getElementById(`mode-${studyMode}`).classList.add('active');
+
+            loadNextCard();
+
+      </script>
+
 </body>
+
 </html>
